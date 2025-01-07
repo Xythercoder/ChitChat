@@ -1,0 +1,31 @@
+# Services
+services:
+  server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - "5001:5050"
+    networks:
+      - app-network  
+    env_file: .env
+
+  # Client service
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    container_name: frontend
+    ports:
+      - "80:8009"
+    depends_on:
+      - server
+    networks:
+      - app-network  
+
+networks:
+  app-network:
+    driver: bridge
