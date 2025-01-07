@@ -1,6 +1,7 @@
 import { generateToken } from "../lib/utils.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import cloudinary from "../lib/cloudinary.js"
 
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -43,7 +44,7 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "Failed to create new user." });
     }
   } catch (error) {
-    console.log("Error in signup controller", error.message);
+    console.error("Error in signup controller", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -71,7 +72,7 @@ export const login = async (req, res) => {
       profilePic: user.profilePic,
     });
   } catch (error) {
-    console.log("Error in login controller", error.message);
+    console.error("Error in login controller", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -83,7 +84,41 @@ export const logout = async (req, res) => {
     res.cookie("jwt", "", { maxAge: 0 });
     res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
-    console.log("Error in logout conroller", error.message);
+    console.error("Error in logout conroller", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+
+export const updateProfile = async ( req, res ) => {
+    try {
+      const { profilePic } = req.body;
+      const userId = req.user._id;
+
+      if (!profilePic) {
+        return res.status( 400 ).json( { message: "Profile pic is require" } );
+      }
+
+      const uploadResponse = await cloudinary.uploader.upload( profilePic );
+      const updatedUser = await User.findByIdAndUpdate( userId, { profilePic: uploadResponse.secure_url }, {new:true} );
+      
+      res.status( 200 ).json( updatedUser );
+
+
+    } catch (error) {
+      console.error("Error in update profile", error.message);
+      re.status( 500 ).json( { message: "Internal server error" } );
+    }
+};
+
+
+
+export const checkAuth = (req, res) => {
+  try {
+    res.status( 200 ).json( req.user );
+  } catch (error) {
+    console.error( "Error in checkAuth controller", error.message );
+    res.status( 500 ).json( { message: "Internal Server Error" } );
+  }
+}
