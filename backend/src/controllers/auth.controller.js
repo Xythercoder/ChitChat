@@ -29,6 +29,7 @@ export const signup = async (req, res) => {
     });
 
     if (newUser) {
+
       generateToken(newUser._id, res);
       await newUser.save();
 
@@ -48,6 +49,9 @@ export const signup = async (req, res) => {
   }
 };
 
+
+
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -56,7 +60,7 @@ export const login = async (req, res) => {
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    console.log(isPasswordCorrect)
+
     if (!isPasswordCorrect)
       return res.status(400).json({ message: "Invalid credentials" });
 
@@ -74,6 +78,10 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+
+
 
 export const logout = async (req, res) => {
   try {
