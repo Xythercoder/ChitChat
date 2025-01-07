@@ -30,6 +30,7 @@ export const signup = async (req, res) => {
     });
 
     if (newUser) {
+
       generateToken(newUser._id, res);
       await newUser.save();
 
@@ -50,6 +51,11 @@ export const signup = async (req, res) => {
 };
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ankita
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -79,6 +85,11 @@ export const login = async (req, res) => {
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ankita
 export const logout = async (req, res) => {
   try {
     res.cookie("jwt", "", { maxAge: 0 });
