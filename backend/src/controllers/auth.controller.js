@@ -49,7 +49,6 @@ export const signup = async (req, res) => {
 };
 
 
-
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -64,7 +63,7 @@ export const login = async (req, res) => {
 
     generateToken(user._id, res);
 
-    res.status(200, {
+    res.status(200).json({
       message: "User login successfully",
       _id: user._id, 
       fullName: user.fullName,
@@ -76,7 +75,6 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
 
 
 
