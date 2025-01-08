@@ -17,13 +17,13 @@ COPY . .
 RUN npm run build
 
 # Stage-2
-FROM nginx:1.25.2-alpine-slim
+FROM nginx:latest
 
 # Copy the static file to my Nginx folder to serve static contain
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Open the port to react
-EXPOSE 80
+EXPOSE 8090
 
 # Run nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
