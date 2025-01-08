@@ -23,7 +23,7 @@ FROM nginx:latest
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Open the port to react
-EXPOSE 8090
+EXPOSE 80
 
 # Run nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
