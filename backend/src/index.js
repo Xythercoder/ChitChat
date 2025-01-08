@@ -2,14 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { Server } from "socket.io";
 import path from "path";
 
 import { connectDB } from "./lib/db.js";
 
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
-import { app } from "./lib/socket.js";
+import { app, server } from "./lib/socket.js";
 
 dotenv.config();
 
@@ -23,18 +22,14 @@ const cors = require( 'cors' );
 
 app.use(
   cors({
-    origin: "https://chitchat.apstor.org",
+    origin: "https://chitchat.apstor.org:8090",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://chitchat.apstor.org");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true"); // If cookies are used
-  next();
-});
+app.options("*", cors());
 
 
 app.use("/api/auth", authRoutes);
