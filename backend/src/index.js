@@ -20,12 +20,29 @@ app.use(express.json());
 app.use( cookieParser() );
 const cors = require('cors');
 
+const allowedOrigins = [
+  "https://chitchat.apstor.org",  
+  "http://localhost:5173",       
+  "http://localhost:8090"        
+];
+
 app.use(
   cors({
-    origin: "https://chitchat.apstor.org",
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS policy: This origin is not allowed."));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"],   // Allowed headers
     credentials: true,
   })
 );
+
+
+app.options("*", cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
