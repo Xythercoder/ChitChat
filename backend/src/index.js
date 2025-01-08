@@ -19,11 +19,11 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use( cookieParser() );
 const cors = require('cors');
-  
+
 app.use(
   cors({
     origin: function (origin, callback) {
-      const allowedOrigins = ["https://chitchat.apstor.org", "https://api.apstor.org"];
+      const allowedOrigins = ["https://api.apstor.org", "https://chitchat.apstor.org"];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
