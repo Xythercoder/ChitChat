@@ -18,18 +18,15 @@ const __dirname = path.resolve();
 
 app.use(express.json());
 app.use( cookieParser() );
-
+const cors = require('cors');
 
 app.use(
   cors({
     origin: "https://chitchat.apstor.org:8090",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-app.options("*", cors());
 
 
 app.use("/api/auth", authRoutes);
