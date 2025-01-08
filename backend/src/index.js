@@ -17,10 +17,20 @@ const PORT = process.env.PORT;
 const __dirname = path.resolve();
 
 app.use(express.json());
-app.use(cookieParser());
+app.use( cookieParser() );
+const cors = require('cors');
+
+const allowedOrigins = ["https://chitchat.apstor.org", "https://api.apstor.org"];
+
 app.use(
   cors({
-    origin: "https://chitchat.apstor.org/login",
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
