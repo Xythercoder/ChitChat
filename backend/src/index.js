@@ -20,14 +20,7 @@ app.use(express.json());
 app.use( cookieParser() );
 const cors = require( 'cors' );
 
-app.use(
-  cors({
-    origin: "https://chitchat.apstor.org:8090",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors({ origin: "https://chitchat.apstor.org:8090", credentials: true }));
 
 
 app.use("/api/auth", authRoutes);
