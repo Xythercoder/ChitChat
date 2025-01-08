@@ -18,7 +18,7 @@ const __dirname = path.resolve();
 
 app.use(express.json());
 app.use( cookieParser() );
-const cors = require('cors');
+
 
 const allowedOrigins = [
   "https://chitchat.apstor.org",  
