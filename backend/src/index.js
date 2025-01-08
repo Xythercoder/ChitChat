@@ -22,17 +22,8 @@ const cors = require('cors');
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      const allowedOrigins = ["https://api.apstor.org", "https://chitchat.apstor.org"];
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // Allow cookies
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "*",
+    credentials: true,
   })
 );
 
