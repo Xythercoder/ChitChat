@@ -22,6 +22,7 @@ app.use( cookieParser() );
 
 const allowedOrigins = [
   "https://chitchat.apstor.org",  
+  "https://api.apstor.org",  
   "http://localhost:5173",       
   "http://localhost:8090"        
 ];
