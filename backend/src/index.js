@@ -22,12 +22,10 @@ const cors = require('cors');
 
 app.use(
   cors({
-    origin: "https://chitchat.apstor.org:8090",
+    origin: "https://chitchat.apstor.org",
     credentials: true,
   })
 );
-
-
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
