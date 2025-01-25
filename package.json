@@ -12,5 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "chitchat": "file:"
+  },
+  "devDependencies": {
+    "vite-plugin-pwa": "^0.21.1"
   }
 }
