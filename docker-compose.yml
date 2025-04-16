@@ -23,7 +23,7 @@ services:
     container_name: frontend
     restart: always
     depends_on:
-      - server
+      - webserver
     networks:
       - app-network
     volumes:
