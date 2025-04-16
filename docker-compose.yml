@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  webserver:
+  web:
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -23,7 +23,7 @@ services:
     container_name: frontend
     restart: always
     depends_on:
-      - webserver
+      - web
     networks:
       - app-network
     volumes:
