@@ -30,7 +30,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
 
-  nginx:
+ server:
     image: nginx:latest
     container_name: nginx
     restart: always
